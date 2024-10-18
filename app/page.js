@@ -26,7 +26,7 @@ export default function Home() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
+  // set the pantry to an empty array
   const [pantry, setPantry] = useState([]);
 
   const start = async () => {
@@ -45,9 +45,10 @@ export default function Home() {
   }, [])
 
   const [itemName, setItemName] = useState("")
-
+  //add an item to the pantry database
   const addItem = async (item) => {
     const docRef = doc(collection(fireStore, 'pantry'), item)
+    // get the current state of the items on the database
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) { 
       const { count } = docSnap.data()
@@ -59,7 +60,7 @@ export default function Home() {
     await start()
     await window.alert(`${item} added to pantry`)
   }
-
+  // remove an item from the pantry database
   const removeItem = async (item) => {
     const docRef = doc(collection(fireStore, 'pantry'), item)
     const docSnap = await getDoc(docRef)
